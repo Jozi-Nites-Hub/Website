@@ -1,0 +1,27 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"   # Where images are uploaded
+public_folder: "/images" # How images are linked
+
+collections:
+  - name: "content"
+    label: "Page Content"
+    files:
+      - name: "home"
+        label: "Home Page"
+        file: "index.html"
+        fields:
+          - { label: "Nav Logo", name: "nav_logo", widget: "image", default: "/logo.png" }
+          - { label: "Hero Background Image", name: "hero_image", widget: "image", default: "https://images.pexels.com/photos/1243199/pexels-photo-1243199.jpeg" }
+          - { label: "Hero Title", name: "hero_title", widget: "string", default: "Jozi Nites — The Safest Adult Playground in Mzansi" }
+          - { label: "Hero Subtitle", name: "hero_subtitle", widget: "text", default: "Community spaces, education, events and support for adults exploring kink." }
+          - { label: "About Heading", name: "about_heading", widget: "string", default: "Who We Are" }
+          - { label: "About Text", name: "about_text", widget: "text", default: "Jozi Nites is a grassroots non-profit dedicated to creating safe spaces." }
+          - label: "Glossary"
+            name: "glossary"
+            widget: "list"
+            fields:
+              - { label: "Term", name: "term", widget: "string", default: "AFTERCARE" }
+              - { label: "Definition", name: "definition", widget: "text", default: "Cuddles, water, chocolate." }

@@ -1,0 +1,8 @@
+jozi-nites/
+├── index.html          (Created from Step 2 below)
+├── logo.png            (Your first attached image - the 3D logo)
+├── pineapple.png       (Your second attached image - the single pineapple icon)
+├── favicon.png         (A copy of pineapple.png, just renamed)
+└── admin/
+    ├── index.html      (Created from Step 3 below)
+    └── config.yml      (Created from Step 4 below)

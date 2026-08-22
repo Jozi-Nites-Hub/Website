@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jozi Nites</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <meta name="theme-color" content="#0b0b0b">
+
+  <style>
+    /* Global fonts */
+    body { font-family: 'DM Sans', sans-serif; background: #0b0b0b; color: #cbd5e1; }
+    .heading-font { font-family: 'Fraunces', serif; }
+
+    :root{ --bg:#0b0b0b; --panel:#0f1112; --muted:#94a3b8; --text:#e6eef6; --gold:#F59E0B; --gold-2:#FBBF24; --accent-green:#10b981 }
+
+    /* Consent overlay */
+    .consent-overlay { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; background: rgba(5,5,5,0.85); backdrop-filter: blur(6px); }
+    .consent-overlay.hidden { display: none; }
+
+    /* Site nav */
+    .site-nav { transform: translateY(-100%); transition: transform 0.25s ease, background 0.25s ease; }
+    .site-nav.visible { transform: translateY(0); }
+    .site-nav a { color: var(--text); }
+    .site-nav a:hover { color: var(--gold); }
+    .nav-cta{ background: linear-gradient(180deg, rgba(245,158,11,1), rgba(251,191,36,1)); color:#0b0b0b; padding:8px 14px; border-radius:10px; font-weight:700 }
+
+    /* Toast */
+    .toast { position: fixed; bottom: 2rem; right: 2rem; z-index: 100; padding: 1rem 1.5rem; border-radius: 0.75rem; background: var(--gold); color: #0b0b0b; font-weight: 700; transform: translateY(12px); transition: transform .2s ease, opacity .2s ease; opacity:0 }
+    .toast.show { transform: translateY(0); opacity:1 }
+
+    /* Panels and cards */
+    .panel { background: linear-gradient(180deg, rgba(18,18,18,1), rgba(15,15,15,0.9)); border: 1px solid rgba(245,158,11,0.12); padding:18px; border-radius:12px }
+    .card-title{ color:var(--gold); font-weight:700 }
+    .small-muted{ color:var(--muted); font-weight:500 }
+
+    /* Programs */
+    .programs-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:1rem }
+    .prog-card{ background:transparent; border:1px solid rgba(245,158,11,0.08); padding:16px; border-radius:14px }
+
+    /* Glossary */
+    .glossary-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap:1rem }
+    .glossary-item{ background:transparent; border:1px solid rgba(245,158,11,0.12); padding:16px; border-radius:10px }
+    .glossary-item b{ color:var(--gold); }
+
+    /* Footer */
+    footer { background: transparent; border-top:1px solid rgba(255,255,255,0.02); color:var(--muted); }
+    .footer-grid{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap:2rem; max-width:1100px; margin:0 auto; padding:36px 1rem }
+
+    /* Quick Links */
+    .quick-links-box{ border:1px solid rgba(245,158,11,0.12); padding:18px; border-radius:14px; text-align:center }
+    .quick-pill{ display:inline-block; background: rgba(245,158,11,0.08); color:var(--gold); padding:8px 12px; margin:6px; border-radius:999px; font-weight:700 }
+
+    /* Responsive */
+    @media (max-width:768px){ .footer-grid{ grid-template-columns:1fr } .site-nav .max-w-6xl{ padding-left:12px;padding-right:12px } }
+  </style>
+</head>
+<body data-template-id="__page-root" class="w-full min-h-screen" style="background:var(--bg); color:var(--text)">
+
+  <!-- Consent Overlay -->
+  <div id="consent-overlay" class="consent-overlay">
+    <div class="max-w-md w-full mx-4 p-8 rounded-2xl shadow-2xl text-center" style="background: #0f1112; border: 1px solid rgba(167, 139, 34, 0.06);">
+      <div class="flex flex-col items-center gap-4">
+        <div style="width:72px;height:72px;border-radius:9999px;background:#0b0b0b;display:flex;align-items:center;justify-content:center;border:2px solid rgba(167,139,34,0.12);">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 9v4" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 17h.01" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10.29 3.85999L2.85999 18.36C2.5 19.05 3.03 19.92 3.86 19.92H20.14C20.97 19.92 21.5 19.05 21.14 18.36L13.71 3.85999C13.04 2.66999 10.97 2.66999 10.29 3.85999Z" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <h2 class="heading-font text-2xl font-bold" style="color:var(--gold); font-size:22px;">18+ ONLY</h2>
+        <p class="text-sm font-semibold mb-2" style="color:var(--muted);">Adult Content Warning</p>
+
+        <p class="text-sm leading-relaxed mb-6" style="color:#99a7b6;">
+          Jozi Nites is an adults-only platform containing explicit discussions of sex, kink, fetish, BDSM, nudity, adult products and alternative lifestyles. By proceeding you confirm you are 18+ and consent to view mature content.
+        </p>
+
+        <div class="flex gap-4 w-full justify-center">
+          <button id="enter-btn" class="w-40 py-3 rounded-full font-semibold" style="background:var(--gold);color:#0b0b0b;">I am 18+ Enter</button>
+          <button id="exit-btn" class="w-24 py-3 rounded-full font-semibold border" style="background:transparent;color:#ef4444;border:1px solid rgba(239,68,68,0.18);">Exit</button>
+        </div>
+
+        <p class="text-xs mt-6" style="color:#6B7280;">© 2025 Jozi Nites NPC — South African Non-Profit Company</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Site -->
+  <div id="main-site" class="hidden">
+    <!-- Sticky Nav -->
+    <nav id="site-nav" class="site-nav fixed top-0 left-0 w-full z-40" style="background: linear-gradient(180deg, rgba(5,5,5,0.92), rgba(5,5,5,0.6)); backdrop-filter: blur(6px);">
+      <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+        <img data-template-id="nav-logo" class="h-10 object-contain" loading="lazy" src="/logo.png" alt="Jozi Nites logo">
+        <div class="flex gap-6 text-sm font-medium items-center">
+          <a href="#home" class="transition">Home</a>
+          <a href="#about" class="transition">About</a>
+          <a href="#programs" class="transition">Programs</a>
+          <a href="#contact" class="transition">Contact</a>
+          <a href="#store" class="transition">Store</a>
+          <a href="#" class="nav-cta">Volunteer</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <header id="home" class="relative overflow-hidden">
+      <img data-template-id="hero-image" class="w-full h-[70vh] object-cover" loading="lazy" src="https://images.pexels.com/photos/1243199/pexels-photo-1243199.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Jozi Nites">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end">
+        <div class="max-w-4xl mx-auto px-6 pb-16">
+          <h2 data-template-id="hero-title" class="heading-font text-white text-4xl md:text-5xl font-bold mb-3" style="color: #fff; font-weight: 800;">Jozi Nites — The Safest Adult Playground in Mzansi</h2>
+          <p data-template-id="hero-subtitle" class="text-white/90 text-lg" style="color: rgb(241, 245, 249); font-weight: 400;">Community spaces, education, events and support for adults exploring kink, play and alternative lifestyles — built by us, for us.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="max-w-6xl mx-auto px-6 py-20">
+      <div class="flex justify-center mb-12">
+        <img data-template-id="site-logo" class="w-full max-w-sm object-contain" loading="lazy" src="/logo.png" alt="Jozi Nites logo">
+      </div>
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h3 data-template-id="about-heading" class="heading-font text-3xl font-bold mb-4" style="color: #fff; font-weight: 700;">Who We Are</h3>
+          <p data-template-id="about-text" class="leading-relaxed" style="color: #9aa8b6;">Jozi Nites is a grassroots non-profit dedicated to creating safe, consensual, and education-led spaces for adults exploring kink, intimacy and alternative communities across Johannesburg (Mzansi). We run events, peer-led workshops and offer resources to build connection and safety.</p>
+        </div>
+        <img data-template-id="about-image" class="w-full h-72 object-cover rounded-2xl shadow-lg" loading="lazy" src="https://images.pexels.com/photos/6647057/pexels-photo-6647057.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="About Jozi Nites">
+      </div>
+    </section>
+
+    <!-- Programs -->
+    <section id="programs" class="py-20" style="background: transparent;">
+      <div class="max-w-6xl mx-auto px-6">
+        <h3 data-template-id="programs-heading" class="heading-font text-3xl font-bold mb-12 text-center" style="color: #fff;">Our Programs</h3>
+        <div class="programs-grid">
+          <div class="prog-card panel"><h4 class="card-title">Wellness Workshops</h4><p class="small-muted">Weekly meditation, consent practices and wellbeing sessions aimed at building supportive communities.</p></div>
+          <div class="prog-card panel"><h4 class="card-title">Game Nite & Socials</h4><p class="small-muted">Regular social events to meet people in a relaxed, non-judgmental environment.</p></div>
+          <div class="prog-card panel"><h4 class="card-title">Academy</h4><p class="small-muted">Educational workshops and online resources covering safety, consent and play techniques for beginners and experienced folks.</p></div>
+          <div class="prog-card panel"><h4 class="card-title">Spaza & Peer Support</h4><p class="small-muted">Community resource hub and peer listening for adults seeking connection and advice.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Glossary -->
+    <section id="glossary" class="max-w-6xl mx-auto px-6 py-12">
+      <h3 class="heading-font text-3xl font-bold mb-6" style="color:#fff">Your Spicy Glossary</h3>
+      <p class="small-muted mb-6">Mzansi Adult Glossary — No Vanilla Edition</p>
+      <div class="glossary-grid">
+        <div class="glossary-item"><div><b>AFTERCARE</b> — Cuddles, water, chocolate, and sweet talk after a scene. Non-negotiable.</div></div>
+        <div class="glossary-item"><div><b>BRAT</b> — Sub who misbehaves on purpose just to get "punished". Cute but chaotic.</div></div>
+        <div class="glossary-item"><div><b>DROP</b> — The emotional/physical crash after intense play. Can be sub-drop or dom-drop.</div></div>
+        <div class="glossary-item"><div><b>EDGE PLAY</b> — Stuff close to the line (breath play, knives, fire). High risk, higher trust.</div></div>
+        <div class="glossary-item"><div><b>SAFE WORD</b> — Instant full-stop word. Ours defaults: RED = stop, YELLOW = slow down, GREEN = loving it.</div></div>
+        <div class="glossary-item"><div><b>SSC</b> — Safe, Sane, Consensual. The beginner-friendly motto.</div></div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="max-w-6xl mx-auto px-6 py-20">
+      <h3 data-template-id="contact-heading" class="heading-font text-3xl font-bold mb-12 text-center" style="color:#fff">Contact & Get Involved</h3>
+      <div class="grid md:grid-cols-2 gap-12">
+        <form id="contact-form" class="space-y-5 panel">
+          <div><label class="text-sm font-medium block mb-1" for="cf-name" style="color:#cbd5e1">Name</label><input id="cf-name" class="w-full p-3 rounded-md bg-[#0b0b0b] border border-gray-800 text-sm" placeholder="Your name" required></div>
+          <div><label class="text-sm font-medium block mb-1" for="cf-email" style="color:#cbd5e1">Email</label><input id="cf-email" type="email" class="w-full p-3 rounded-md bg-[#0b0b0b] border border-gray-800 text-sm" placeholder="you@example.com" required></div>
+          <div><label class="text-sm font-medium block mb-1" for="cf-message" style="color:#cbd5e1">Message</label><textarea id="cf-message" rows="5" class="w-full p-3 rounded-md bg-[#0b0b0b] border border-gray-800 text-sm" placeholder="Tell us about your interest"></textarea></div>
+          <button id="submit-btn" type="submit" class="w-full py-3 rounded-xl font-semibold text-lg transition hover:opacity-90" style="background:var(--gold); color:#0b0b0b">Send Message</button>
+        </form>
+        <div class="space-y-6">
+          <div class="panel">
+            <h4 class="heading-font card-title">Get in touch</h4>
+            <div class="space-y-3 small-muted">
+              <p><strong style="color:#fff">Email</strong> — info@jozinites.co.za</p>
+              <p><strong style="color:#fff">Phone</strong> — +27 84 246 9788</p>
+              <p><strong style="color:#fff">Website</strong> — www.jozinites.co.za</p>
+              <p><strong style="color:#fff">Instagram</strong> — @jozinites_jhb</p>
+            </div>
+          </div>
+          <div class="quick-links-box">
+            <h4 class="heading-font" style="color:#fff">Quick Links</h4>
+            <div style="margin-top:12px">
+              <span class="quick-pill">Home & Feed</span><span class="quick-pill">Online Store</span><span class="quick-pill">Writers Blok</span><span class="quick-pill">Podcast</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 text-center">
+      <div class="footer-grid">
+        <div style="text-align:left">
+          <img src="/logo.png" alt="Jozi Nites" style="height:44px;object-contain;margin-bottom:12px">
+          <p style="color:#9aa8b6">The safest adult playground in Mzansi — built by us, for us. 100% South African, local, Mzansi.</p>
+          <p style="color:var(--gold);font-weight:700;margin-top:8px">Let's flip the narrative & have some fun 🍍</p>
+        </div>
+        <div style="text-align:left">
+          <h4 class="heading-font" style="color:#fff">Quick Links</h4>
+          <nav style="margin-top:10px;color:#9aa8b6;display:flex;flex-direction:column;gap:6px">
+            <a href="#home" style="color:inherit;text-decoration:none">Home</a>
+            <a href="#about" style="color:inherit;text-decoration:none">About</a>
+            <a href="#programs" style="color:inherit;text-decoration:none">Programs</a>
+            <a href="#contact" style="color:inherit;text-decoration:none">Academy</a>
+          </nav>
+        </div>
+        <div style="text-align:left">
+          <h4 class="heading-font" style="color:#fff">Contact</h4>
+          <p style="color:#9aa8b6;margin-top:8px">info@jozinites.co.za<br>+27 84 246 9788<br>www.jozinites.co.za</p>
+        </div>
+      </div>
+      <p style="color:#6b7280;margin-top:12px">© 2025 Jozi Nites NPC — South African Non-Profit Company</p>
+    </footer>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">Message sent successfully!</div>
+
+  <script>
+    // Consent logic
+    const enterBtn = document.getElementById('enter-btn');
+    const exitBtn = document.getElementById('exit-btn');
+    const overlay = document.getElementById('consent-overlay');
+    const mainSite = document.getElementById('main-site');
+
+    if (enterBtn) {
+        enterBtn.addEventListener('click', () => {
+            overlay.classList.add('hidden');
+            mainSite.classList.remove('hidden');
+        });
+    }
+    if (exitBtn) {
+        exitBtn.addEventListener('click', () => {
+            window.location.href = 'https://www.google.com';
+        });
+    }
+
+    // Sticky nav
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) nav.classList.add('visible');
+        else nav.classList.remove('visible');
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Contact form
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const btn = document.getElementById('submit-btn');
+          btn.disabled = true;
+          btn.style.opacity = '0.5';
+          
+          // Simulate success (You can connect this to Netlify Forms or an external API later)
+          setTimeout(() => {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            contactForm.reset();
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+          }, 1000);
+      });
+    }
+
+    // Initialize Icons
+    if (window.lucide) lucide.createIcons();
+  </script>
+</body>
+</html>
