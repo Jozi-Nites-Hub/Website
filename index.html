@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Jozi Nites</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Favicon -->
   <link rel="icon" href="favicon.ico?v=2" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=2">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=2">
@@ -49,7 +47,7 @@
     .center{ text-align:center; }
     .ph-link{ cursor:pointer; text-decoration:none; color:inherit; }
 
-    /* Consent overlay */
+    /* Age Gate */
     body.gate-open{ overflow:hidden; }
     .consent-overlay{ position:fixed; inset:0; z-index:50; display:flex; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch;
       padding:max(1rem,env(safe-area-inset-top)) max(1rem,env(safe-area-inset-right)) max(1rem,env(safe-area-inset-bottom)) max(1rem,env(safe-area-inset-left));
@@ -135,14 +133,13 @@
 
     .programs-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); gap:1rem; }
 
-    /* ---------- Interactive Glossary ---------- */
+    /* Glossary */
     .glossary-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
       gap: 1rem;
       margin-top: 1.5rem;
     }
-
     .glossary-item {
       position: relative;
       background: rgba(11,11,11,.55);
@@ -153,18 +150,13 @@
       font-size: .95rem;
       cursor: pointer;
       transition: all 0.25s ease;
-      overflow: visible;
     }
-
-    .glossary-item:hover,
-    .glossary-item:focus,
-    .glossary-item.active {
+    .glossary-item:hover, .glossary-item:focus, .glossary-item.active {
       border-color: rgba(245,158,11,.45);
       background: rgba(15,15,15,.95);
       transform: translateY(-3px);
       box-shadow: 0 12px 24px rgba(0,0,0,.35);
     }
-
     .glossary-item b {
       color: var(--gold);
       font-weight: 600;
@@ -173,7 +165,6 @@
       margin-bottom: 0.25rem;
       font-size: 1.05rem;
     }
-
     .glossary-tooltip {
       position: absolute;
       bottom: calc(100% + 12px);
@@ -196,7 +187,6 @@
       z-index: 30;
       pointer-events: none;
     }
-
     .glossary-tooltip::after {
       content: '';
       position: absolute;
@@ -206,7 +196,6 @@
       border: 7px solid transparent;
       border-top-color: #111;
     }
-
     .glossary-item:hover .glossary-tooltip,
     .glossary-item:focus .glossary-tooltip,
     .glossary-item.active .glossary-tooltip {
@@ -214,8 +203,6 @@
       visibility: visible;
       transform: translateX(-50%) translateY(0);
     }
-
-    /* Mobile tooltips */
     @media (max-width: 768px) {
       .glossary-tooltip {
         position: static;
@@ -397,22 +384,73 @@
     <section id="programs" class="section">
       <div class="container">
         <h3 class="display section-title center">Our Programs</h3>
-        <div class="programs-grid">
-          <div class="panel">
-            <h4 class="card-title">Wellness Workshops</h4>
-            <p class="small-muted">Weekly meditation, consent practices and wellbeing sessions aimed at building supportive communities.</p>
+        <p class="center" style="color:var(--body-text); max-width:40rem; margin:0 auto 2.5rem;">
+          Everything you need to explore, learn, connect and play — safely and without shame.
+        </p>
+
+        <!-- Featured -->
+        <div class="programs-grid" style="margin-bottom: 3rem;">
+          <div class="panel" style="text-align:center; padding:1.5rem 1.25rem;">
+            <img src="programs/indaba.png" alt="Indaba Events" style="width:100%; max-width:160px; margin:0 auto 1.1rem; border-radius:12px;">
+            <h4 class="card-title">Indaba Events</h4>
+            <p class="small-muted">Your community gig guide — events, parties, workshops and gatherings across Mzansi.</p>
           </div>
-          <div class="panel">
-            <h4 class="card-title">Game Nite &amp; Socials</h4>
-            <p class="small-muted">Regular social events to meet people in a relaxed, non-judgmental environment.</p>
-          </div>
-          <div class="panel">
+
+          <div class="panel" style="text-align:center; padding:1.5rem 1.25rem;">
+            <img src="programs/academy.png" alt="Academy" style="width:100%; max-width:160px; margin:0 auto 1.1rem; border-radius:12px;">
             <h4 class="card-title">Academy</h4>
-            <p class="small-muted">Educational workshops and online resources covering safety, consent and play techniques for beginners and experienced adults.</p>
+            <p class="small-muted">Your information hub for safety, consent, kink, relationships and community knowledge.</p>
           </div>
-          <div class="panel">
-            <h4 class="card-title">Spaza &amp; Peer Support</h4>
-            <p class="small-muted">Community resource hub and peer listening for adults seeking connection and advice.</p>
+
+          <div class="panel" style="text-align:center; padding:1.5rem 1.25rem;">
+            <img src="programs/gamenite.png" alt="Game Nite" style="width:100%; max-width:160px; margin:0 auto 1.1rem; border-radius:12px;">
+            <h4 class="card-title">Game Nite</h4>
+            <p class="small-muted">Community games — online and in person. Fun, connection and play in a safe space.</p>
+          </div>
+
+          <div class="panel" style="text-align:center; padding:1.5rem 1.25rem;">
+            <img src="programs/thoughts.png" alt="Thoughts" style="width:100%; max-width:160px; margin:0 auto 1.1rem; border-radius:12px;">
+            <h4 class="card-title">Thoughts</h4>
+            <p class="small-muted">Books, quizzes, deep conversations and the full interactive glossary.</p>
+          </div>
+
+          <div class="panel" style="text-align:center; padding:1.5rem 1.25rem;">
+            <img src="programs/snaps.png" alt="Snaps" style="width:100%; max-width:160px; margin:0 auto 1.1rem; border-radius:12px;">
+            <h4 class="card-title">Snaps</h4>
+            <p class="small-muted">Photography lab & creative space for tasteful adult and lifestyle imagery.</p>
+          </div>
+
+          <div class="panel" style="text-align:center; padding:1.5rem 1.25rem;">
+            <img src="programs/ai.png" alt="AI Artworks" style="width:100%; max-width:160px; margin:0 auto 1.1rem; border-radius:12px;">
+            <h4 class="card-title">AI Artworks</h4>
+            <p class="small-muted">Create unique adult-themed AI-generated art and content with our custom tools.</p>
+          </div>
+        </div>
+
+        <!-- Coming Soon -->
+        <div style="text-align:center; margin-top:1rem;">
+          <h4 class="display" style="font-size:1.8rem; color:var(--gold); margin-bottom:1.25rem;">Coming Soon</h4>
+          <div class="programs-grid">
+            <div class="panel" style="text-align:center; padding:1.4rem 1.1rem; opacity:0.85;">
+              <img src="programs/spaza.png" alt="Spaza" style="width:100%; max-width:130px; margin:0 auto 0.9rem; border-radius:10px;">
+              <h4 class="card-title" style="font-size:1.35rem;">Spaza</h4>
+              <p class="small-muted" style="font-size:0.9rem;">Official online store for adult merchandise</p>
+            </div>
+            <div class="panel" style="text-align:center; padding:1.4rem 1.1rem; opacity:0.85;">
+              <img src="programs/agonyaunt.png" alt="Agony Aunt" style="width:100%; max-width:130px; margin:0 auto 0.9rem; border-radius:10px;">
+              <h4 class="card-title" style="font-size:1.35rem;">Agony Aunt</h4>
+              <p class="small-muted" style="font-size:0.9rem;">Anonymous advice & confessions</p>
+            </div>
+            <div class="panel" style="text-align:center; padding:1.4rem 1.1rem; opacity:0.85;">
+              <img src="programs/writersblok.png" alt="Writers Blok" style="width:100%; max-width:130px; margin:0 auto 0.9rem; border-radius:10px;">
+              <h4 class="card-title" style="font-size:1.35rem;">Writers Blok</h4>
+              <p class="small-muted" style="font-size:0.9rem;">Community blog & stories</p>
+            </div>
+            <div class="panel" style="text-align:center; padding:1.4rem 1.1rem; opacity:0.85;">
+              <img src="programs/podcast.png" alt="Podcast" style="width:100%; max-width:130px; margin:0 auto 0.9rem; border-radius:10px;">
+              <h4 class="card-title" style="font-size:1.35rem;">Podcast</h4>
+              <p class="small-muted" style="font-size:0.9rem;">Lessons, laughter & love</p>
+            </div>
           </div>
         </div>
       </div>
@@ -428,117 +466,28 @@
         </p>
 
         <div class="glossary-grid">
-
-          <div class="glossary-item" tabindex="0">
-            <b>AFTERCARE</b>
-            <span class="glossary-tooltip">The cuddles, water, snacks and soft words after a scene. Non-negotiable in Jozi.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>BRAT</b>
-            <span class="glossary-tooltip">A sub who likes to misbehave on purpose… just to get “sorted out”. Cute chaos.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>CONSENT</b>
-            <span class="glossary-tooltip">Enthusiastic, ongoing and informed yes. Without it, nothing happens. Simple.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>DOM / DOMINANT</b>
-            <span class="glossary-tooltip">The one who takes the lead and holds the control (with consent, always).</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>DROP</b>
-            <span class="glossary-tooltip">That emotional or physical crash after intense play. Can hit subs or Doms.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>EDGE PLAY</b>
-            <span class="glossary-tooltip">Play that sits close to the edge — breath, knives, fire, etc. High trust required.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>HARD LIMIT</b>
-            <span class="glossary-tooltip">Absolute no. Never to be crossed. Respect it or walk away.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>SOFT LIMIT</b>
-            <span class="glossary-tooltip">Something you’re unsure about. Might try with lots of care and communication.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>NEGOTIATION</b>
-            <span class="glossary-tooltip">The important chat before play — limits, desires, safewords and expectations.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>SAFE WORD</b>
-            <span class="glossary-tooltip">Instant full-stop word. Classic system: Red = stop, Yellow = slow down, Green = good.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>SSC</b>
-            <span class="glossary-tooltip">Safe, Sane, Consensual. The old-school beginner-friendly motto.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>RACK</b>
-            <span class="glossary-tooltip">Risk-Aware Consensual Kink. A more modern take that acknowledges real risk.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>SUB / SUBMISSIVE</b>
-            <span class="glossary-tooltip">The one who consensually gives up control and enjoys following.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>SWITCH</b>
-            <span class="glossary-tooltip">Someone who happily plays on both sides of the slash — Dom and sub.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>TOP</b>
-            <span class="glossary-tooltip">The person doing the action (hitting, tying, teasing, etc.).</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>BOTTOM</b>
-            <span class="glossary-tooltip">The person receiving the action. Not always the same as being submissive.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>SCENE</b>
-            <span class="glossary-tooltip">A period of play between partners — from light fun to full intensity.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>SUBSPACE</b>
-            <span class="glossary-tooltip">That floaty, deeply relaxed headspace some subs go into during play.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>IMPACT PLAY</b>
-            <span class="glossary-tooltip">Spanking, flogging, paddling, caning… anything that goes “thwack”.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>BONDAGE</b>
-            <span class="glossary-tooltip">Being tied, restrained or restricted for pleasure, power or both.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>VANILLA</b>
-            <span class="glossary-tooltip">Mainstream / non-kinky sex and relationships. Nothing wrong with it — just different.</span>
-          </div>
-
-          <div class="glossary-item" tabindex="0">
-            <b>CNC</b>
-            <span class="glossary-tooltip">Consensual Non-Consent. Roleplay that looks non-consensual but is fully negotiated.</span>
-          </div>
-
+          <div class="glossary-item" tabindex="0"><b>AFTERCARE</b><span class="glossary-tooltip">The cuddles, water, snacks and soft words after a scene. Non-negotiable in Jozi.</span></div>
+          <div class="glossary-item" tabindex="0"><b>BRAT</b><span class="glossary-tooltip">A sub who likes to misbehave on purpose… just to get “sorted out”. Cute chaos.</span></div>
+          <div class="glossary-item" tabindex="0"><b>CONSENT</b><span class="glossary-tooltip">Enthusiastic, ongoing and informed yes. Without it, nothing happens. Simple.</span></div>
+          <div class="glossary-item" tabindex="0"><b>DOM / DOMINANT</b><span class="glossary-tooltip">The one who takes the lead and holds the control (with consent, always).</span></div>
+          <div class="glossary-item" tabindex="0"><b>DROP</b><span class="glossary-tooltip">That emotional or physical crash after intense play. Can hit subs or Doms.</span></div>
+          <div class="glossary-item" tabindex="0"><b>EDGE PLAY</b><span class="glossary-tooltip">Play that sits close to the edge — breath, knives, fire, etc. High trust required.</span></div>
+          <div class="glossary-item" tabindex="0"><b>HARD LIMIT</b><span class="glossary-tooltip">Absolute no. Never to be crossed. Respect it or walk away.</span></div>
+          <div class="glossary-item" tabindex="0"><b>SOFT LIMIT</b><span class="glossary-tooltip">Something you’re unsure about. Might try with lots of care and communication.</span></div>
+          <div class="glossary-item" tabindex="0"><b>NEGOTIATION</b><span class="glossary-tooltip">The important chat before play — limits, desires, safewords and expectations.</span></div>
+          <div class="glossary-item" tabindex="0"><b>SAFE WORD</b><span class="glossary-tooltip">Instant full-stop word. Classic system: Red = stop, Yellow = slow down, Green = good.</span></div>
+          <div class="glossary-item" tabindex="0"><b>SSC</b><span class="glossary-tooltip">Safe, Sane, Consensual. The old-school beginner-friendly motto.</span></div>
+          <div class="glossary-item" tabindex="0"><b>RACK</b><span class="glossary-tooltip">Risk-Aware Consensual Kink. A more modern take that acknowledges real risk.</span></div>
+          <div class="glossary-item" tabindex="0"><b>SUB / SUBMISSIVE</b><span class="glossary-tooltip">The one who consensually gives up control and enjoys following.</span></div>
+          <div class="glossary-item" tabindex="0"><b>SWITCH</b><span class="glossary-tooltip">Someone who happily plays on both sides of the slash — Dom and sub.</span></div>
+          <div class="glossary-item" tabindex="0"><b>TOP</b><span class="glossary-tooltip">The person doing the action (hitting, tying, teasing, etc.).</span></div>
+          <div class="glossary-item" tabindex="0"><b>BOTTOM</b><span class="glossary-tooltip">The person receiving the action. Not always the same as being submissive.</span></div>
+          <div class="glossary-item" tabindex="0"><b>SCENE</b><span class="glossary-tooltip">A period of play between partners — from light fun to full intensity.</span></div>
+          <div class="glossary-item" tabindex="0"><b>SUBSPACE</b><span class="glossary-tooltip">That floaty, deeply relaxed headspace some subs go into during play.</span></div>
+          <div class="glossary-item" tabindex="0"><b>IMPACT PLAY</b><span class="glossary-tooltip">Spanking, flogging, paddling, caning… anything that goes “thwack”.</span></div>
+          <div class="glossary-item" tabindex="0"><b>BONDAGE</b><span class="glossary-tooltip">Being tied, restrained or restricted for pleasure, power or both.</span></div>
+          <div class="glossary-item" tabindex="0"><b>VANILLA</b><span class="glossary-tooltip">Mainstream / non-kinky sex and relationships. Nothing wrong with it — just different.</span></div>
+          <div class="glossary-item" tabindex="0"><b>CNC</b><span class="glossary-tooltip">Consensual Non-Consent. Roleplay that looks non-consensual but is fully negotiated.</span></div>
         </div>
       </div>
     </section>
@@ -641,7 +590,7 @@
       });
     }
 
-    // Smooth scroll + close mobile menu
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -654,7 +603,7 @@
       });
     });
 
-    // Interactive Glossary (mobile tap support)
+    // Glossary mobile tap
     document.querySelectorAll('.glossary-item').forEach(item => {
       item.addEventListener('click', () => {
         document.querySelectorAll('.glossary-item').forEach(i => {
