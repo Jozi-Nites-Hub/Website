@@ -166,6 +166,45 @@
 
     .programs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1rem; }
 
+    /* Slideshow */
+    .slideshow-section { margin-top: 3.5rem; }
+    .slideshow-wrapper {
+      position: relative; max-width: 920px; margin: 0 auto;
+      border-radius: 1rem; overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,.45);
+      border: 1px solid rgba(245,158,11,.15);
+    }
+    .slideshow { display: flex; transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1); }
+    .slide { min-width: 100%; position: relative; }
+    .slide img {
+      width: 100%; height: clamp(280px, 55vw, 520px);
+      object-fit: cover; display: block;
+    }
+    .slide-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.1rem 1.4rem;
+      background: linear-gradient(transparent, rgba(0,0,0,.85));
+      color: #fff; font-size: 0.95rem; font-weight: 500;
+    }
+    .slide-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(0,0,0,.55); border: 1px solid rgba(245,158,11,.35);
+      color: var(--gold); font-size: 1.4rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease; z-index: 5;
+    }
+    .slide-btn:hover { background: var(--gold); color: #0b0b0b; }
+    .slide-btn.prev { left: 12px; }
+    .slide-btn.next { right: 12px; }
+    .slide-dots { display: flex; justify-content: center; gap: 8px; margin-top: 1.1rem; }
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(245,158,11,.25); border: none; cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .dot.active { background: var(--gold); transform: scale(1.25); }
+
     /* Glossary */
     .glossary-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
@@ -225,18 +264,14 @@
     .info-list { display: flex; flex-direction: column; gap: .6rem; overflow-wrap: anywhere; }
     .info-list strong { color: #fff; font-weight: 600; }
 
-    .social-icons {
-      display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem;
-    }
+    .social-icons { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
     .social-icons a {
       display: inline-flex; align-items: center; justify-content: center;
       width: 42px; height: 42px; border-radius: 50%;
       background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.25);
       color: var(--gold); font-size: 1.1rem; transition: all .2s ease;
     }
-    .social-icons a:hover {
-      background: var(--gold); color: #0b0b0b; transform: translateY(-2px);
-    }
+    .social-icons a:hover { background: var(--gold); color: #0b0b0b; transform: translateY(-2px); }
 
     .quick-links-box {
       border: 1px solid rgba(245,158,11,.14); padding: 1.15rem; border-radius: .85rem;
@@ -364,7 +399,38 @@
                alt="Jozi Nites community connection">
         </div>
 
-        <div style="margin-bottom: 3.5rem; max-width: 52rem;">
+        <!-- Community Slideshow -->
+        <div class="slideshow-section">
+          <h3 class="display section-title center" style="margin-bottom: 1.5rem;">Our Community</h3>
+
+          <div class="slideshow-wrapper">
+            <div class="slideshow" id="slideshow">
+              <div class="slide">
+                <img src="slideshow/group-1.jpg" alt="Jozi Nites community group">
+                <div class="slide-caption">The Jozi Nites family — Safe. Educated. Unashamed.</div>
+              </div>
+              <div class="slide">
+                <img src="slideshow/group-2.jpg" alt="Jozi Nites golf shirts and caps">
+                <div class="slide-caption">Branded gear — tees, golf shirts & caps</div>
+              </div>
+              <div class="slide">
+                <img src="slideshow/group-3.jpg" alt="Jozi Nites building signage">
+                <div class="slide-caption">Jozi Nites in Johannesburg</div>
+              </div>
+              <div class="slide">
+                <img src="slideshow/group-4.jpg" alt="Jozi Nites community laughing">
+                <div class="slide-caption">Real connection. Real smiles. Real community.</div>
+              </div>
+            </div>
+
+            <button class="slide-btn prev" id="prevBtn" aria-label="Previous slide">‹</button>
+            <button class="slide-btn next" id="nextBtn" aria-label="Next slide">›</button>
+          </div>
+
+          <div class="slide-dots" id="slideDots"></div>
+        </div>
+
+        <div style="margin-top: 3.5rem; margin-bottom: 3.5rem; max-width: 52rem;">
           <h3 class="display section-title" style="margin-bottom: 1rem;">Our Mission</h3>
           <p style="color: var(--body-text); font-size: clamp(1rem, 2vw, 1.125rem); line-height: 1.7;">
             To destigmatise adult content in South Africa by providing accessible education, fostering open and respectful conversations, and building safe community spaces where consent, knowledge, and pleasure can coexist without shame.
@@ -688,6 +754,87 @@
         btn.disabled = false;
         btn.textContent = 'Send Message';
       });
+    }
+
+    // ---------- Community Slideshow + Swipe ----------
+    const slideshow = document.getElementById('slideshow');
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsContainer = document.getElementById('slideDots');
+
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('button');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlideshow() {
+      slideshow.style.transform = `translateX(-${currentSlide * 100}%)`;
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateSlideshow();
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlideshow();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlideshow();
+    }
+
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+    let autoPlay = setInterval(nextSlide, 5000);
+
+    const wrapper = document.querySelector('.slideshow-wrapper');
+    if (wrapper) {
+      wrapper.addEventListener('mouseenter', () => clearInterval(autoPlay));
+      wrapper.addEventListener('mouseleave', () => {
+        autoPlay = setInterval(nextSlide, 5000);
+      });
+    }
+
+    // Touch / Swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    function handleSwipe() {
+      const swipeDistance = touchEndX - touchStartX;
+      if (Math.abs(swipeDistance) > 50) {
+        if (swipeDistance < 0) nextSlide();
+        else prevSlide();
+      }
+    }
+
+    if (wrapper) {
+      wrapper.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        clearInterval(autoPlay);
+      }, { passive: true });
+
+      wrapper.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        autoPlay = setInterval(nextSlide, 5000);
+      }, { passive: true });
     }
   </script>
 </body>
