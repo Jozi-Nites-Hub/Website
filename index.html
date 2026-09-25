@@ -58,7 +58,6 @@
                font-size: clamp(.7rem, 1.8vw, .85rem); color: var(--muted); }
     .center { text-align: center; }
 
-    /* Links */
     a { color: var(--gold); text-decoration: none; transition: color .2s ease; }
     a:hover { color: var(--gold-2); }
 
@@ -360,7 +359,6 @@
               Jozi Nites is a South African non-profit wellness initiative creating safe, education-driven spaces where adults can openly discuss, learn, and experience adult content without shame or stigma. We exist to bridge the gaps around taboo topics, health &amp; safety, and the realities of adult content creators and service providers.
             </p>
           </div>
-          <!-- Better fitting image -->
           <img class="about-img" loading="lazy"
                src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80"
                alt="Jozi Nites community connection">
@@ -512,8 +510,7 @@
         <h3 class="display section-title center" style="margin-bottom:2.5rem">Contact &amp; Get Involved</h3>
         <div class="contact-grid">
 
-          <!-- Form -->
-          <form id="contact-form" class="panel form" action="https://formspree.io/f/your-form-id" method="POST">
+          <form id="contact-form" class="panel form" action="https://formspree.io/f/mrpbargz" method="POST">
             <input type="hidden" name="_subject" value="New message from Jozi Nites website">
             <div>
               <label for="cf-name">Name</label>
@@ -530,7 +527,6 @@
             <button id="submit-btn" type="submit" class="btn">Send Message</button>
           </form>
 
-          <!-- Get in Touch -->
           <div class="info-stack">
             <div class="panel">
               <h4 class="card-title">Get in Touch</h4>
@@ -541,7 +537,6 @@
                 <p><strong>Website</strong> — <a href="https://jozi-nites-hub.github.io/Website/" target="_blank" rel="noopener">jozi-nites-hub.github.io</a></p>
               </div>
 
-              <!-- Social Icons (placeholders) -->
               <div class="social-icons">
                 <a href="#" title="Instagram" aria-label="Instagram">IG</a>
                 <a href="#" title="Facebook" aria-label="Facebook">FB</a>
@@ -661,7 +656,7 @@
       });
     });
 
-    // Contact form (Formspree)
+    // Contact form – Formspree
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
       contactForm.addEventListener('submit', async (e) => {
@@ -680,13 +675,14 @@
           if (response.ok) {
             contactForm.reset();
             const toast = document.getElementById('toast');
+            toast.textContent = 'Message sent successfully!';
             toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+            setTimeout(() => toast.classList.remove('show'), 3500);
           } else {
-            alert('Something went wrong. Please try again or email us directly.');
+            alert('Something went wrong. Please try again or email us directly at jozinites011@gmail.com');
           }
         } catch (err) {
-          alert('Something went wrong. Please try again or email us directly.');
+          alert('Something went wrong. Please try again or email us directly at jozinites011@gmail.com');
         }
 
         btn.disabled = false;
